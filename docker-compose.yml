@@ -1,4 +1,3 @@
-# author RENU BATHEJA
 # Each service defined in this docker-compose.yml is exactly one of
 # images or builds.
 
@@ -47,14 +46,7 @@ services:
    depends_on:
      - registrator
    volumes_from:
-     - proactivealgo
- proactivealgo:
-    image: proactivealgo
-    links: 
-     - proactive_monitoring       
-    volumes:
-    - /var/run/docker.sock:/var/run/docker.sock    
-    - ./:/dockerCompose
+     - proactive
  proactive_monitoring:
     image: proactive_monitoring
     ports:
@@ -70,8 +62,6 @@ services:
    volumes:
      - /var/run/docker.sock:/var/run/docker.sock
      - ./:/dockerCompose
-   volumes_from:
-     - proactivealgo
  influxsrv:
    image: tutum/influxdb
    ports:

@@ -19,10 +19,6 @@ pushd monitoring/DockMate/
 popd
 docker build -t monitoring monitoring
 
-# build image for proactive monitoring agent and proactive algorithm container
-docker build -t proactive_monitoring proactive_monitoring/
-docker build -t proactivealgo proactivealgo/
-
 # build image for Proactive Approach 1
 docker build -t myproactive proactiveapp1/
 

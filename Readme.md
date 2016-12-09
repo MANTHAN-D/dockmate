@@ -1,6 +1,6 @@
 # Download and unzip Dockmate
 
-- Download dockerCompose.zip and unzip it in a new directory (e.g. in /Users/Dockmate)
+- Download the source code in form of dockerMate.zip and unzip its content in a new directory (e.g. in /Users/Dockmate/dockerCompose)
 
 # Build images of application specific containers
 
@@ -63,34 +63,7 @@ Logs could be monitored with this command
 docker-compose logs -f | grep monitor
 ```
 
-## Testing Dockmate for Proactive Approach 1
-
-Run below command to test Proactive Approach 1
-```
-./runProactive1.sh
-```
-
-Install jmeter plugins : Throughput shaping timer and Transactions per second plugins.
-
-Steps to install: https://www.packtpub.com/mapt/book/Application%20Development/9781783988280/6/ch06lvl1sec54/Using+Throughput+Shaping+Timer
-
-Generate variable load through JMeter file:ProactiveApproach1.jmx.
-
-Check the prediction and monitoring through graphs.
-
-```
-http://DOCKER_HOST:8081/monitor
-```
-Based on the predicted workload, the console messages show the Scaling out and Scaling in of containers.
-Logs could be monitored with this command
-
-```
-docker-compose logs -f | grep proactive_algo
-```
-
-
-## Testing Dockmate for Proactive Approach 2
-Run below command to test Proactive Approach 1
+## Testing Dockmate for Proactive Approach
 ```
 ./runProactive2.sh
 ```
