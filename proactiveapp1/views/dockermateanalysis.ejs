@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+
+    <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+    <script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css"/>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+    <!-- Script for Angular JS -->
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0rc1/angular-route.min.js"></script>
+
+    <script src="http://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+
+    <!-- Fusion Chart -->
+    <!-- FusionCharts library-->
+    <script type="text/javascript" src="/javascripts/fusioncharts.js"></script>
+    <!-- Angular plugin -->
+    <script type="text/javascript" src="/javascripts/angular-fusioncharts.min.js"></script>
+    <!-- Fusion Chart End -->
+
+    <!-- Angular JS -->
+    <script src= "/angular/dockermateanalysis.js"></script>
+    
+    <!-- Socket IO JS-->
+    <script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
+    <title>Docker Mate | Analysis</title>
+
+</head>
+<body ng-app="dockermate" ng-controller="dockermate">
+<div class="container">
+  <div class="jumbotron">
+    <h2>DockMate - Elastic container scaler</h2>
+    <p>DockMate is an elastic scaler for docker containers using reactive as well as proactive approach. It has been developed as part of CMPE281 group4 project.</p>
+  </div>
+  <!-- Page Content -->
+    <div class="container">
+
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <h2>Http Request Rate Predictor</h2>
+                <fusioncharts
+                    width="80%"
+                    height="400"
+                    type="msspline"
+                    dataFormat='json'
+                    dataSource="{{dataSource}}">
+                </fusioncharts>
+                <br>
+                <!-- <p class="lead">Prediction for next interval {{prediction.req_prediction}}</p> -->              
+            </div>
+        </div>
+        <!-- /.row -->
+
+    </div>
+    <!-- /.container -->     
+</div>
+</body>
+</html>

@@ -1,0 +1,4 @@
+docker pause dockercompose_monitoring_1
+docker unpause dockercompose_proactive_1
+docker pause dockercompose_proactivealgo_1
+docker logs -f dockercompose_proactive_1

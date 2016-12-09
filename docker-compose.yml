@@ -1,0 +1,99 @@
+# author RENU BATHEJA
+# Each service defined in this docker-compose.yml is exactly one of
+# images or builds.
+
+version: '2'
+services:
+ monitoring:
+   image: monitoring
+   privileged: true
+   volumes:
+     - /var/run/docker.sock:/var/run/docker.sock
+     - ./:/dockerCompose
+ consul:
+   image: consul
+   expose:
+     - "8300"
+     - "8400"
+     - "8500"     
+ registrator:
+   command: -internal consul://consul:8500
+   image: gliderlabs/registrator
+   privileged: true
+   depends_on:
+     - consul
+   volumes:
+     - /var/run/docker.sock:/tmp/docker.sock
+ mongo:
+  image: mongo
+  depends_on:
+    - haproxy     
+ ws:
+   image: myws
+   expose:
+     - "80"
+   depends_on:
+     - mongo
+ haproxy:
+   image: myproxy
+   privileged: true
+   ports:
+     - "80:80"
+     - "81:81"
+   volumes:
+     - ./haproxy.template:/etc/haproxy/haproxy.template
+     - ./:/dockerCompose
+     - /var/run/docker.sock:/var/run/docker.sock
+   depends_on:
+     - registrator
+   volumes_from:
+     - proactivealgo
+ proactivealgo:
+    image: proactivealgo
+    links: 
+     - proactive_monitoring       
+    volumes:
+    - /var/run/docker.sock:/var/run/docker.sock    
+    - ./:/dockerCompose
+ proactive_monitoring:
+    image: proactive_monitoring
+    ports:
+     - "8081:8081"
+     - "7000:7000"
+ proactive:
+   image: myproactive
+   privileged: true
+   expose:
+     - "3000"
+   ports:
+     - "3000:3000"
+   volumes:
+     - /var/run/docker.sock:/var/run/docker.sock
+     - ./:/dockerCompose
+   volumes_from:
+     - proactivealgo
+ influxsrv:
+   image: tutum/influxdb
+   ports:
+     - "8083:8083"
+     - "8086:8086"   
+   expose:
+     - "8090"
+     - "8099"
+ cadvisor:
+   image: google/cadvisor:latest
+   command: -storage_driver=influxdb --port=9090 -storage_driver_db=cadvisor -storage_driver_host=influxsrv:8086
+   ports:
+     - "9091:9090"
+   expose:
+     - "9090"
+   depends_on:
+     - influxsrv
+   volumes:
+     - /:/rootfs:ro
+     - /var/run:/var/run:rw
+     - /sys:/sys:ro
+     - /var/lib/docker/:/var/lib/docker:ro
+   links:
+     - influxsrv:influxsrv
+     
